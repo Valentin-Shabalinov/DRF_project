@@ -16,10 +16,6 @@ class User(AbstractUser):
     email = models.EmailField(
         max_length=250, unique=True, verbose_name="Адрес электронной почты"
     )
-    phone = models.CharField(
-        max_length=100, **NULLABLE, verbose_name="Телефон"
-    )
-    town = models.CharField(max_length=100, **NULLABLE, verbose_name="Город")
     first_name = models.CharField(
         max_length=100, **NULLABLE, verbose_name="Имя"
     )
@@ -30,6 +26,12 @@ class User(AbstractUser):
         upload_to="users/", **NULLABLE, verbose_name="Аватар"
     )
     comment = models.TextField(**NULLABLE, verbose_name="Описание")
+    is_active = models.BooleanField(
+        default=True, verbose_name="Активность пользователя"
+    )
+    role = models.CharField(
+        max_length=20, **NULLABLE, choices=UserRoles.choices
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
